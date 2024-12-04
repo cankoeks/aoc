@@ -15,10 +15,11 @@ end
 
 def diagonal(input)
   count = 0
+  vertical_size = input.transpose.first.size
   input.map!
   input.each_with_index do |line, r|
     line.each_with_index do |char, c|
-      unless (r > line.size-4 || c > input.transpose.first.size-4 || !("XS".include?(char)))  
+      unless (r > line.size-4 || c > vertical_size-4 || !("XS".include?(char)))  
         count += 1 if (char + input[r+1][c+1] + input[r+2][c+2] + input[r+3][c+3]) =~ PATTERN 
       end
 
@@ -33,11 +34,13 @@ end
 
 def mas(input)
   count = 0
+  vertical_size = input.transpose.first.size
   input.map!
   input.each_with_index do |line, r|
     line.each_with_index do |char, c|
       next if r.zero? || c.zero?
-      next if r > input.transpose.first.size-2 || c > input.size-2
+
+      next if r > vertical_size-2 || c > input.size-2
       next unless char == "A"
 
       cross_1 = (input[r-1][c-1] + char + input[r+1][c+1]).chars.sort
