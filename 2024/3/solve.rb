@@ -15,7 +15,6 @@ def part1
   count1
 end
 
-
 def part2
   count2 = 0
   flag = true
