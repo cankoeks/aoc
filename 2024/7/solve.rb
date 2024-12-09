@@ -1,7 +1,6 @@
 require_relative "../utils"
 include AdventOfCode::Utils
 
-
 def eval_operation(a, op, b)
   case op
     when "+" then a + b
@@ -11,14 +10,12 @@ def eval_operation(a, op, b)
 end
 
 def eval_expression(expression)
-  value = 0
   while expression.length > 1 do
     a = expression.shift
     op = expression.shift
     b = expression.shift
     expression.insert(0, eval_operation(a, op, b))
   end
-
   expression.first
 end
 
@@ -26,14 +23,10 @@ def part1
   count = 0
   read_input(__dir__ + "/input.txt") do |f|
     line = f.split.map(&:to_i)
-
     expected = line[0]
     line.delete_at(0)
-
-    combinations = ["+", "*"].repeated_permutation(line.length - 1).to_a
-
     found = false
-    combinations.each do |combination|
+    ["+", "*"].repeated_permutation(line.length - 1).to_a.each do |combination|
       offset = 0
       dup = line.dup
       combination.each_with_index do |op, i|
@@ -64,10 +57,8 @@ def part2
     expected = line[0]
     line.delete_at(0)
 
-    combinations = ["+", "*", "||"].repeated_permutation(line.length - 1).to_a
-
     found = false
-    combinations.each do |combination|
+    ["+", "*", "||"].repeated_permutation(line.length - 1).to_a.each do |combination|
       offset = 0
       dup = line.dup
       combination.each_with_index do |op, i|
