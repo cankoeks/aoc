@@ -1,9 +1,9 @@
-require_relative "../utils"
+require "./aoc"
 
 def solve_part1
-  AdventOfCode::Utils.with_timed_run do
+  AdventOfCode.timed_run do
     part1 = 0
-    File.read("input.txt").split(",").each do |line|
+    AdventOfCode.read_input(:words).each do |line|
       range = line.split("-").map(&:to_i)
       for i in range[0]..range[1] do
         isize = i.to_s.size
@@ -18,7 +18,7 @@ def solve_part1
   end
 end
 
-def palindrome?(num)
+def pattern?(num)
   case num
   when 10..99
     num % 11 == 0
@@ -44,12 +44,12 @@ def palindrome?(num)
 end
 
 def solve_part2
-  AdventOfCode::Utils.with_timed_run do
+  AdventOfCode.timed_run do
     part2 = 0
-    File.read("input.txt").split(",").each do |line|
+    AdventOfCode.read_input(:words).each do |line|
       range = line.split("-").map(&:to_i)
       for i in range[0]..range[1] do
-        part2 += i if palindrome?(i)
+        part2 += i if pattern?(i)
       end
     end
     part2

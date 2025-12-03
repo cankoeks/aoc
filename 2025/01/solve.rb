@@ -1,10 +1,10 @@
-require_relative "../utils"
+require "./aoc"
 
 dial = 50
 part1, part2 = 0, 0
 
-AdventOfCode::Utils.with_timed_run do
-  AdventOfCode::Utils.read_input do |line|
+AdventOfCode.timed_run do
+  AdventOfCode.read_input do |line|
     x = line.gsub("L", "-").gsub("R", "+").to_i
     old_dial = dial
     dial += x
