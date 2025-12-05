@@ -13,6 +13,8 @@ module AdventOfCode
         File.read(filename).chars
       when :words
         File.read(filename).split(",").map(&:chomp)
+      when :grid
+        File.read(filename).split("\n").map { |line| line.chomp.split("") }
       end
       
       if block_given?
