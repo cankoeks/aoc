@@ -8,7 +8,7 @@ module AdventOfCode
       filename = filename.to_s if filename.respond_to?(:to_s)
       result = case read_mode
       when :lines
-        File.foreach(filename).map { |line| line.chomp }
+        File.foreach(filename).map(&:chomp)
       when :chars
         File.read(filename).chars
       when :words
