@@ -3,32 +3,28 @@ require_relative "utils"
 module AdventOfCode
   include AdventOfCode::Utils
   
+  YEAR = "2025"
   TEST_INPUT = "test.txt"
   INPUT = "input.txt"
 
   module_function
 
-  def run!(year, day, test)
-    year ||= find_latest_year
-    day ||= find_latest_day(year)
+  def run!(day, test)
+    day ||= find_latest_day
     ENV["AOC_TEST_MODE"] = test.to_s
 
-    file = parse_file_name(year, day)
+    file = parse_file_name(day)
     return unless file
     system("ruby #{file}")
   end
-
-  def find_latest_year
-    Dir.glob("20*").select { |path| File.directory?(path) }.max_by { |year| year.to_i }
+  
+  def find_latest_day
+    day_path = Dir.glob("*").select { |path| File.directory?(path) && path.match?(/^\d+$/) }.max_by { |day| day.to_i }
+    day_path if day_path
   end
   
-  def find_latest_day(year)
-    day_path = Dir.glob("#{year}/*").select { |path| File.directory?(path) }.max_by { |day| File.basename(day).to_i }
-    File.basename(day_path) if day_path
-  end
-  
-  def parse_file_name(year, day)
-    file_path = "#{year}/#{day}/solve.rb"
+  def parse_file_name(day)
+    file_path = "#{day}/solve.rb"
     file_path if File.exist?(file_path)
   rescue
     raise "File not found: #{file_path}"
@@ -50,3 +46,4 @@ module AdventOfCode
     end
   end
 end
+
