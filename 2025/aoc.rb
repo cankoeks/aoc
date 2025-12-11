@@ -34,10 +34,10 @@ module AdventOfCode
     (ENV["AOC_TEST_MODE"] == "true") ? TEST_INPUT : INPUT
   end
 
-  def read_input(read_mode=:lines, &block)
+  def read_input(read_mode=:lines, **kwargs, &block)
     dir = File.dirname(caller_locations(1, 1).first.path)
     file_path = File.join(dir, mode)
-    Utils.read_input(file_path, read_mode, &block)
+    Utils.read_input(file_path, read_mode, **kwargs, &block)
   end
 
   def timed_run

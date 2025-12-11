@@ -4,17 +4,17 @@ module AdventOfCode
 
     module_function
 
-    def read_input(filename, read_mode=READ_MODE)
+    def read_input(filename, read_mode=READ_MODE, chomp=true)
       filename = filename.to_s if filename.respond_to?(:to_s)
       result = case read_mode
       when :lines
-        File.foreach(filename).map(&:chomp)
+        File.foreach(filename).map { |line| chomp ? line.chomp : line }
       when :chars
         File.read(filename).chars
       when :words
-        File.read(filename).split(",").map(&:chomp)
+        File.read(filename).split(",").map { |word| chomp ? word.chomp : word }
       when :grid
-        File.read(filename).split("\n").map { |line| line.chomp.split("") }
+        File.read(filename).split("\n").map { |line| chomp ? line.chomp.split("") : line.split("") }
       end
       
       if block_given?
